@@ -247,7 +247,7 @@ number, 56/60 -> 59/60.
 | GATE-01 | 12 corpus payloads per new category, written **from the threat model**, never derived from the patterns |
 | GATE-02 | Recall pinned **exactly**, not as a floor — an improvement fails the build too |
 | GATE-03 | ~1,300-file third-party sweep on every pattern change; the 18-file clean corpus is not sufficient evidence |
-| GATE-04 | One category per PR — widening four at once is an unreviewable FP blast radius |
+| GATE-04 | No reviewable unit widens more than one category — widening four at once is an unreviewable FP blast radius |
 | GATE-05 | The false-positive control is mutation-tested — two of four v0.1.0 widenings had a control the corpus was not holding |
 
 Also standing: `main` stays strictly linear. A pattern's `name` is a **consumer contract** —
