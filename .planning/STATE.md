@@ -313,6 +313,7 @@ the pattern set rather than the input. Two misses therefore remain, both for sta
 | 260915-spt | Fix #129 — JSONC-commented config silently skipped the structural pass; adds the stderr diagnostic *and* offset-preserving JSONC tolerance | 2026-09-15 | `4cddc99` | [260915-spt-fix-129-jsonc-commented-config-silently-](./quick/260915-spt-fix-129-jsonc-commented-config-silently-/) |
 | 260915-u3j | Fix #128 — the manufactured-boundary gate: a match whose edge falls inside a separator-joined compound token (`sh-lint`, `on-call`) is withheld as an artefact, library-wide across all passes | 2026-09-16 | `c47194e` | [260915-u3j-fix-128-separator-normalizer-folds-sh-li](./quick/260915-u3j-fix-128-separator-normalizer-folds-sh-li/) |
 | 260915-u3j | Fix #128 — a pattern-agnostic manufactured-boundary gate stops `sh-lint`/`on-call`/`DAN-mode-switch` from firing PI028/PI030/PI031 as artefacts, across all five scanner passes; adds ADR-006 | 2026-09-16 | `66351c8`..`b31b110` (+ Task 4) | [260915-u3j-fix-128-separator-normalizer-folds-sh-li](./quick/260915-u3j-fix-128-separator-normalizer-folds-sh-li/) |
+| 260916-sz4 | Amend GATE-04 to a review-unit rule — "No reviewable unit widens more than one category"; the old "its own PR" wording was never once satisfiable as written (#117) | 2026-09-16 | `7c8e99e` | [260916-sz4-amend-gate-04-to-no-reviewable-unit-wide](./quick/260916-sz4-amend-gate-04-to-no-reviewable-unit-wide/) |
 
 ## Milestone hygiene done 2026-08-30
 
