@@ -169,3 +169,12 @@ None - no external service configuration required.
 ---
 *Phase: quick-260916-sz4*
 *Completed: 2026-09-16*
+
+---
+
+**Addendum 2026-09-17 — the named residue is now closed.** The `.planning/.continue-here.md`
+copy described above was folded in by a follow-on `/gsd-fast` run in the same session. The
+out-of-scope call was correct for *this* task's plan, but the file turned out to be **tracked**,
+not regenerated scratch — a committed fourth copy of the gates table, in the document an agent
+reads first. No copy of `| GATE-04 | One category per PR |` now survives outside the historical
+`.planning/phases/` records and this file's own quoted text.
