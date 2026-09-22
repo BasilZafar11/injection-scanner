@@ -152,7 +152,7 @@ Plans:
 | GATE-01 | 12 corpus payloads per category, from the threat model, never derived from patterns |
 | GATE-02 | Recall counts pinned **exactly** — an improvement fails the build too |
 | GATE-03 | ~1,300-file third-party sweep on every pattern change |
-| GATE-04 | One category per PR |
+| GATE-04 | No reviewable unit widens more than one category |
 | GATE-05 | The false-positive control is mutation-tested |
 
 Also standing: `main` stays strictly linear (0 merge commits); a pattern's `name` is a consumer

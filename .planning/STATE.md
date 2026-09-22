@@ -247,7 +247,7 @@ number, 56/60 -> 59/60.
 | GATE-01 | 12 corpus payloads per new category, written **from the threat model**, never derived from the patterns |
 | GATE-02 | Recall pinned **exactly**, not as a floor — an improvement fails the build too |
 | GATE-03 | ~1,300-file third-party sweep on every pattern change; the 18-file clean corpus is not sufficient evidence |
-| GATE-04 | One category per PR — widening four at once is an unreviewable FP blast radius |
+| GATE-04 | No reviewable unit widens more than one category — widening four at once is an unreviewable FP blast radius |
 | GATE-05 | The false-positive control is mutation-tested — two of four v0.1.0 widenings had a control the corpus was not holding |
 
 Also standing: `main` stays strictly linear. A pattern's `name` is a **consumer contract** —
@@ -310,6 +310,11 @@ the pattern set rather than the input. Two misses therefore remain, both for sta
 |---|-------------|------|--------|-----------|
 | 260902-jhy | Fix CR-01 negation blindness in PI053/PI056/PI057; fold in WR-01 `PATTERNS.md` category row | 2026-09-02 | `db2a575` | [260902-jhy-fix-cr-01-negation-blindness-in-pi053-pi](./quick/260902-jhy-fix-cr-01-negation-blindness-in-pi053-pi/) |
 | 260903-fast | Fix char-boundary panic in frontmatter projection (detection bypass via oversized multi-byte scalar) | 2026-09-03 | `d28dfd0` | — |
+| 260915-spt | Fix #129 — JSONC-commented config silently skipped the structural pass; adds the stderr diagnostic *and* offset-preserving JSONC tolerance | 2026-09-15 | `4cddc99` | [260915-spt-fix-129-jsonc-commented-config-silently-](./quick/260915-spt-fix-129-jsonc-commented-config-silently-/) |
+| 260915-u3j | Fix #128 — the manufactured-boundary gate: a match whose edge falls inside a separator-joined compound token (`sh-lint`, `on-call`) is withheld as an artefact, library-wide across all passes | 2026-09-16 | `c47194e` | [260915-u3j-fix-128-separator-normalizer-folds-sh-li](./quick/260915-u3j-fix-128-separator-normalizer-folds-sh-li/) |
+| 260915-u3j | Fix #128 — a pattern-agnostic manufactured-boundary gate stops `sh-lint`/`on-call`/`DAN-mode-switch` from firing PI028/PI030/PI031 as artefacts, across all five scanner passes; adds ADR-006 | 2026-09-16 | `66351c8`..`b31b110` (+ Task 4) | [260915-u3j-fix-128-separator-normalizer-folds-sh-li](./quick/260915-u3j-fix-128-separator-normalizer-folds-sh-li/) |
+| 260916-sz4 | Amend GATE-04 to a review-unit rule — "No reviewable unit widens more than one category"; the old "its own PR" wording was never once satisfiable as written (#117) | 2026-09-16 | `7c8e99e` | [260916-sz4-amend-gate-04-to-no-reviewable-unit-wide](./quick/260916-sz4-amend-gate-04-to-no-reviewable-unit-wide/) |
+| 260916-sz4b | Fold the GATE-04 amendment into `.continue-here.md` — a fourth, tracked copy of the standing-gates table still read "One category per PR" (#117) | 2026-09-17 | `20ae586` | — |
 
 ## Milestone hygiene done 2026-08-30
 
@@ -398,6 +403,31 @@ HUB-V2-02 precedent first — unguarded `cfg(unix)` deps that would not link.
   point it at `.planning/local/`. Four issues filed (#129-#132) plus one for a carried-over Phase
   3 gap (#133, WR-02, waived in `.planning/WINDOWS.md`). The Phase 3 planning directory, lost to
   the rebase-merge that closed #33, was restored to `main` from `752ac98`/`db2a575`.
+
+- 2026-09-16 (quick task 260915-u3j): **#128 closed — the research's locked mechanism did
+  not survive measurement, worth not rediscovering.** The plan was originally built on
+  "gate the normalized pass": measured against `27e4d49`, that fixes at most 2 of the 6
+  false positives. `-` is a non-word character, so `sh\b`/`on\b` are satisfied by a hyphen
+  directly, with **no fold involved** — `PI028` (all four `sh-lint` variants) and `PI030`
+  (`on-call`) are **raw-pass** findings, and the raw-pass-runs-first dedup means a
+  normalized-pass-only gate never gets a say on them. Only `PI031` (`DAN-mode-switch`) is
+  genuinely normalized-pass. The shipped gate is therefore **pass-independent**:
+  `normalize::span_edge_is_manufactured(text, start, end)`, called at all five scanner
+  passes against each pass's own haystack (the normalized pass via a new `original_span`
+  helper so the gated span and the quoted text can never disagree). Withheld artefacts are
+  filed to a new `manufactured_boundary` array on `ScanReport` — recorded, not discarded,
+  same principle as `suppressed`/`low_confidence`/`baselined` — but deliberately carries
+  **no promotion flag**, because a flag that restored a known artefact would re-enable the
+  bug. Gate set is `-`/`_` only (a strict subset of the fold set, pinned by a test); `.`/`/`
+  excluded because they join paths/domains where a match edge before the separator is
+  routinely legitimate. Eleven patterns audited as exposed to the same short-token-`\b`
+  shape (acceptance criterion 4); full writeup in
+  `docs/adr/ADR-006-manufactured-boundary-gate.md`. GATE-02 pin unmoved
+  (`tests/recall_test.rs::EXPECTED` byte-identical to `27e4d49`); GATE-03 swept 23,037
+  real files before and after — manifest/summary byte-identical, `--compare` empty in both
+  directions (see `260915-u3j-SWEEP.md`). Issue #128's acceptance criterion 3 was corrected
+  in the issue itself: `ig-nore pre-vious in-structions` was never detected on `main`,
+  before or after this fix — intra-word hyphenation is a separate, still-open evasion.
 
 ## Session Continuity
 

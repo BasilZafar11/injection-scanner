@@ -69,12 +69,13 @@ Ordered by dependency. Each is one PR, with its own false-positive sweep.
       documentation**, not only the 18-file clean corpus. The 2026-08-29 sweep found 2 CRITICAL and
       25 HIGH false positives the corpus was silent about.
 
-- [ ] **GATE-04**: Each category ships as **its own PR**. Widening four categories at once produces
-      an unreviewable false-positive blast radius — this is a recorded lesson, not a preference.
-      **Status (Phase 3, 2026-09-02):** CAT-01 shipped alone, so the one-category-at-a-time
-      substance of this gate holds. Left unchecked because this milestone's GSD branching strategy
-      is `none` — Phase 3 committed directly to `main` and no PR object exists to point at. Check
-      it when the work is raised as a PR, or amend the gate to say "its own reviewable unit".
+- [x] **GATE-04**: No reviewable unit widens more than one category. Widening four categories at
+      once produces an unreviewable false-positive blast radius — this is a recorded lesson, not a
+      preference. **Amended 2026-09-16 (#117):** the gate previously read "its own PR" and was
+      never once satisfiable as written — CAT-01 shipped directly to `main` with no PR object, and
+      CAT-02 shipped as PR #120 plus PR #136. The substance it protects, one category per unit of
+      review, held in every case. The unit is the PR where one exists and the phase's commit range
+      where it does not.
 
 - [x] **GATE-05**: The false-positive control in each PR is **mutation-tested** — two of four
       v0.1.0 widenings had a control the corpus was not actually holding.
