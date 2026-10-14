@@ -48,24 +48,10 @@ jobs:
   test:
     name: fmt · clippy · test · build
     runs-on: ubuntu-latest
-    # Raised 15 -> 30 when the coverage gate landed (llvm-cov rebuilds the whole
-    # tree with instrumentation, roughly doubling the compile leg), then 30 -> 60
-    # on 2026-10-09 after three consecutive runs were cancelled at exactly 30m
-    # (PRs #186 x2 and #187), with fmt, clippy and `cargo test` all already green.
-    #
-    # Measured breakdown of the run that was cut (#186, attempt 2):
-    #   cargo fmt + clippy          ~0.5 min
-    #   cargo test                  18.1 min   <- dominates
-    #   benchmarks                   0.8 min
-    #   coverage gate               10.5 min and still unfinished at the cut
-    # so the job needs roughly 40 min of work, not 30.
-    #
-    # This is extra TIME, not a fix. The suite is slow because the slowest test
-    # binaries construct a Scanner per case, recompiling all 79 patterns each
-    # time (locally: report_roundtrip ~156s, perf_regression ~155s, recall ~98s,
-    # pattern_relaxed_control ~80s). The real fix is to cache it in a OnceLock,
-    # which would cut the test leg AND the coverage leg, since coverage re-runs
-    # the tests. Tracked as #188; revisit this ceiling once that lands.
+    # #188 caches embedded test scanners once per binary, reducing both test
+    # runs (ordinary and coverage). Keep the 60-minute cold-build allowance
+    # until a complete hosted coverage run measures the new end-to-end cost;
+    # local warm test timings alone do not establish a safe CI ceiling.
     #
     # Do NOT "fix" a timeout by touching `runs-on` -- see the CI policy in
     # CLAUDE.md; a self-hosted label on this public repo queues forever.
