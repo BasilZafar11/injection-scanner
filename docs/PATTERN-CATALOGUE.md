@@ -2078,7 +2078,7 @@ Does **not** catch:
 cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
 ```
 
-**Fix:** Remove the line. Adding a key to authorized_keys grants login access, so it is the user's decision, made outside the document being read.
+**Fix:** Verify that the user explicitly authorized this key installation outside the document being read. Remove the line if they did not. Legitimate SSH setup instructions can match this rule; the key's length does not establish intent.
 
 <details><summary>Regex</summary>
 

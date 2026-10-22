@@ -1654,8 +1654,8 @@ fn test_pi077_lifecycle_hook_sensitive_command() {
 
 #[test]
 fn test_pi079_persistence_command_with_payload() {
-    // A real-shaped ed25519 public-key blob (68 base64 characters after the
-    // `AAAA` prefix, as the format produces).
+    // A real-shaped ed25519 public-key blob (68 base64 characters total,
+    // including the four-character `AAAA` prefix).
     assert_positives(
         "PI079",
         &[
