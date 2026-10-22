@@ -2481,6 +2481,20 @@
       "first_seen_line": 16
     },
     {
+      "file": "tests/fixtures/pi079-evidence.json",
+      "pattern_id": "PI079",
+      "digest": "sha256:839db62f0f04ef4d370b15177a260c579ef59e578a43788ab8d03b08669b22aa",
+      "count": 1,
+      "first_seen_line": 7
+    },
+    {
+      "file": "tests/fixtures/pi079-evidence.json",
+      "pattern_id": "PI079",
+      "digest": "sha256:960665f230ba649103bbbd85dc23fdf13755819fd8a78e872171233ed3f3c64f",
+      "count": 1,
+      "first_seen_line": 15
+    },
+    {
       "file": "tools/injection-lab/corpus/01-prose-role-override.md",
       "pattern_id": "PI001",
       "digest": "sha256:2847bd141d1ca1b6d8f0f4badfde24547b96cbfa7c11f6fc6c2bedd05f057e52",
