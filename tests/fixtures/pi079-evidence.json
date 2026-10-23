@@ -1,0 +1,26 @@
+[
+  {
+    "name": "sans-outlaw-command",
+    "source": "https://isc.sans.edu/diary/30428",
+    "accessed": "2026-10-22",
+    "classification": "hostile-command",
+    "text": "echo \"ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArDp4cun2lhr4KUhBGE7VvAcwdli2a8dbnrTOrbMz1+5O73fcBOx8NVbUT0bUanUV9tJ2/9p7+vD0EpZ3Tz/+0kX34uAx1RV/75GVOmNx+9EuWOnvNoaJe0QXxziIg9eLBHpgLMuakb5+BgTFB+rKJAw9u9FSTDengvS8hX1kNFS4Mjux0hJOK8rvcEmPecjdySYMb66nylAKGwCEE6WEQHmd1mUPgHwGQ0hWCwsQk13yCGPK5w6hYp5zYkFnvlC8hGmd4Ww+u97k6pfTGTUbJk14ujvcD9iUKQTTWYYjIIu5PmUux5bsZ0R4WFwdIe6+i6rBLAsPKgAySVKPRK+oRw== mdrfckr\">>.ssh/authorized_keys",
+    "expected_match": true
+  },
+  {
+    "name": "geckoadmin-windows-key-installation",
+    "source": "https://geckoadmin.com/ssh-key-authentication-setup/",
+    "accessed": "2026-10-22",
+    "classification": "benign-documentation",
+    "text": "echo \"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC4FFRxI+IkBZZ5bfUhNcvc/2KpiZt3TuZoXXPB80q5D SSH-from-Windows\" >> ~/.ssh/authorized_keys",
+    "expected_match": true
+  },
+  {
+    "name": "extract-sftp-elided-key",
+    "source": "https://docs.extract.to/destinations/sftp",
+    "accessed": "2026-10-22",
+    "classification": "benign-documentation",
+    "text": "echo \"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5... extract\" >> ~/.ssh/authorized_keys",
+    "expected_match": false
+  }
+]

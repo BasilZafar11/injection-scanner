@@ -116,6 +116,10 @@ CRITICAL (D-06); `PI073`, `PI074` and `PI079` are MEDIUM and the other six are H
 `patterns/core/persistence-lifecycle-hijack.yaml` for the full set and its header comment, which
 carries every accepted-cost measurement named below.
 
+PI079 now has [independent command evidence and a threshold sensitivity test](PI079-EVIDENCE.md)
+(#180): a captured hostile key append and a legitimate key-installation example both match.
+MEDIUM is retained; the length minimum is still a heuristic, not an optimized classifier.
+
 The five bullets, as shipped:
 
 - `write this to CLAUDE.md`, `append to your memory`, `remember this permanently` — **shipped**:
